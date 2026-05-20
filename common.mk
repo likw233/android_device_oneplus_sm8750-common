@@ -278,10 +278,6 @@ PRODUCT_PACKAGES += \
 
 $(call soong_config_set_bool,OPLUS_LINEAGE_LIVEDISPLAY_HAL,ENABLE_SE,false)
 
-# Ltpo
-PRODUCT_PACKAGES += \
-    OplusLtpo
-
 # Media
 PRODUCT_COPY_FILES += \
     $(AUDIO_HAL_DIR)/configs/common/codec2/media_codecs_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2_audio.xml \
