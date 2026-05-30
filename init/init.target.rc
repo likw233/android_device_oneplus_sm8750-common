@@ -179,6 +179,16 @@ on early-boot && property:persist.vendor.pcie.boot_option=*
     write /sys/bus/platform/devices/1c00000.qcom,pcie/debug/boot_option ${persist.vendor.pcie.boot_option}
     write /sys/bus/platform/devices/1c08000.qcom,pcie/debug/boot_option ${persist.vendor.pcie.boot_option}
 
+# Enable LTPO ADFR features (VRR idle + dynamic frame rate)
+# Set anchor_list sysprop BEFORE SurfaceFlinger starts so the static cache
+# in FlagManager picks it up during initialization.
+on early-boot
+    setprop debug.sf.anchor_list true
+
+on property:sys.boot_completed=1 && property:init.svc.vendor.qti.hardware.display.composer=running
+    write /sys/kernel/oplus_display/adfr_config 0x109f
+    write /sys/kernel/oplus_display/min_fps 1
+
 service vendor.audioadsprpcd_audiopd /vendor/bin/audioadsprpcd audiopd adsp
     override
     class main
