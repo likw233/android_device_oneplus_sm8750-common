@@ -587,7 +587,6 @@ ndk::ScopedAStatus VibratorCL::getSupportedPrimitives(std::vector<CompositePrimi
 
 ndk::ScopedAStatus VibratorCL::getPrimitiveDuration(CompositePrimitive primitive,
     int32_t* durationMs) {
-    uint32_t primitive_id = static_cast<uint32_t>(primitive);
     *durationMs = MIN_EFFECT_TIME;
 
     ALOGD("primitive ID %d duration is %dms", primitive, *durationMs);
@@ -640,8 +639,6 @@ void VibratorCL::composePlayThread(const std::vector<CompositeEffect>& composite
 
 ndk::ScopedAStatus VibratorCL::compose(const std::vector<CompositeEffect>& composite,
     const std::shared_ptr<IVibratorCallback>& callback) {
-    int status;
-
     if (ActiveUsecase || inComposition) {
         ALOGE("VibratorCL Compose: Haptics is already active skipping this instance");
         return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
